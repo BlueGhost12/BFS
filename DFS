@@ -1,0 +1,31 @@
+def dfs(s):
+    stack = []
+    stack.append(s)
+    vis[s] = True
+    while stack:
+        s = stack.pop()
+        for i in arr[s]:
+            if vis[i] is False:
+                stack.append(i)
+                vis[i] = True
+    return
+
+
+t = int(input())
+while t:
+    n, m = map(int, input().split())
+    arr = [[] for i in range(n + 1)]
+    vis = [False] * (n + 1)
+    while m:
+        x, y = map(int, input().split())
+        arr[x].append(y)
+        arr[y].append(x)
+        m = m - 1
+    connected_components = 0
+    for i in range(n + 1):
+        if i != 0:
+            if vis[i] is False:
+                dfs(i)
+                connected_components += 1
+    print(connected_components)
+    t = t - 1
